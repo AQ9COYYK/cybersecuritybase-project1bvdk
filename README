@@ -25,15 +25,15 @@ Select "Token generation and analysis"
 Click "Install selected"
 
 
-Close the browser and start the browser again in private mode.
-Go to http://localhost:8080/admin in the browser.
-The browser will be redirected to http://localhost:8080/login
-Go to OWASP ZAP
-In the lower tab go to the line with URL http://localhost:8080/admin with tag "SetCookie"
-Right click on this line and click on Generate tokens
-Click the generate button
-In the Analyse tokens screen the Line Maximum entropy with a red flag an Summary "Deterministic"? should now be visible
-In the Details tab of the Analyse tokens screen this should be visible: 
+1. Close the browser and start the browser again in private mode.
+2. Go to http://localhost:8080/admin in the browser.
+3. The browser will be redirected to http://localhost:8080/login
+4. Go to OWASP ZAP
+5. In the lower tab go to the line with URL http://localhost:8080/admin with tag "SetCookie"
+6. Right click on this line and click on Generate tokens
+7. Click the generate button
+8. In the Analyse tokens screen the Line Maximum entropy with a red flag an Summary "Deterministic"? should now be visible
+9  In the Details tab of the Analyse tokens screen this should be visible: 
 ---------------
 Maximum entropy
 ---------------
@@ -58,14 +58,14 @@ Signups and admin page is not protected with logon (2)
 
 Identifying the flaw
 
-Start a new ZAP session (File -> New Session).
-Close the browser and start it again in private mode.
-In the browser goto localhost:8080/admin.
-Login with username "bart" password "password".
-See there is a link Signups, this link should only be able to be accessed by the admin.
-Close the browser and open it again in private mode, so you are no longer logged in.
-Go to the page http://localhost:8080/signups
-You should still be able to see the signups page.
+1. Start a new ZAP session (File -> New Session).
+2. Close the browser and start it again in private mode.
+3. In the browser goto localhost:8080/admin.
+4. Login with username "bart" password "password".
+5. See there is a link Signups, this link should only be able to be accessed by the admin.
+6. Close the browser and open it again in private mode, so you are no longer logged in.
+7. Go to the page http://localhost:8080/signups
+8. You should still be able to see the signups page.
 
 How to fix
 
@@ -96,22 +96,22 @@ Vulnerability XSS in signups (3)
 
 Identifing the flaw
 
-Start a new ZAP session (File -> New Session).
-Close the browser and start it again in private mode.
-Go to http://localhost:8080/admin
-The browser will be redirected to http://localhost:8080/login
-Login with username bart and password password
-Go to OWASP ZAP
-Click on Sites
-Right click on http://localhost:8080
-Click on Attack -> "Active Scan..."
-Click on "Start Scan"
-Wait untill the scan has finished
-Click on the Alerts tab
-Click on "Cross Site Scripting (Persistant)(2)"
-Click on the first "GET: http://localhost:8080/signups"
-Click on the first "GET: http://localhost:8080/signups"
-Observe there is a Parameter address and name
+1. Start a new ZAP session (File -> New Session).
+2. Close the browser and start it again in private mode.
+3. Go to http://localhost:8080/admin
+4. The browser will be redirected to http://localhost:8080/login
+5. Login with username bart and password password
+6. Go to OWASP ZAP
+7. Click on Sites
+8. Right click on http://localhost:8080
+9. Click on Attack -> "Active Scan..."
+10. Click on "Start Scan"
+11. Wait untill the scan has finished
+12. Click on the Alerts tab
+13. Click on "Cross Site Scripting (Persistent)(2)"
+14. Click on the first "GET: http://localhost:8080/signups"
+15. Click on the first "GET: http://localhost:8080/signups"
+16. Observe there is a Parameter address and name
 
 How to fix
 
@@ -129,25 +129,25 @@ The "Active scanner rules (beta)" and "Passive scanner rules (alpha)" addons hav
 
 Identifying the flaw
 
-Start a new ZAP session (File -> New Session).
-Close the browser and start it again in private mode.
-Go to http://localhost:8080/admin
-The browser will be redirected to http://localhost:8080/login
-Login with username "bart" and password "password"
-Go to OWASP ZAP
-Click on Sites
-Right click on http://localhost:8080
-Click on Attack -> "Active Scan..."
-Click on "Start Scan"
-Wait untill the scan has finished
-Click on the Alerts tab
-Click on Anti CSRF Token Scanner
-Click on Get:http://localhost:8080/form
+1. Start a new ZAP session (File -> New Session).
+2. Close the browser and start it again in private mode.
+3. Go to http://localhost:8080/admin
+4. The browser will be redirected to http://localhost:8080/login
+5. Login with username "bart" and password "password"
+6. Go to OWASP ZAP
+7. Click on Sites
+8. Right click on http://localhost:8080
+9. Click on Attack -> "Active Scan..."
+10. Click on "Start Scan"
+11. Wait untill the scan has finished
+12. Click on the Alerts tab
+13. Click on Anti CSRF Token Scanner
+14. Click on Get:http://localhost:8080/form
 
 
 
 
-How to fix:
+How to fix
 
 CSRF detection is disabled in sec.project.config.SecurityConfiguration.java http.csrf().disable(); remove this line.
 
@@ -157,20 +157,20 @@ Unvalidated Redirects and Forwards (5)
 
 Identifing the flaw
 
-Start a new ZAP session (File -> New Session).
-Close the browser and start it again in private mode.
-Go to http://localhost:8080/admin
-The browser will be redirected to http://localhost:8080/login
-Login with username "bart" and password "password"
-Go to OWASP ZAP
-Click on Sites
-Right click on http://localhost:8080
-Click on Attack -> "Active Scan..."
-Click on "Start Scan"
-Wait untill the scan has finished
-Click on the Alerts tab
-Click on "External Redirect"
-Here you can see there is an external redirect: 
+1. Start a new ZAP session (File -> New Session).
+2. Close the browser and start it again in private mode.
+3. Go to http://localhost:8080/admin
+4. The browser will be redirected to http://localhost:8080/login
+5. Login with username "bart" and password "password"
+6. Go to OWASP ZAP
+7. Click on Sites
+8. Right click on http://localhost:8080
+9. Click on Attack -> "Active Scan..."
+10. Click on "Start Scan"
+11. Wait untill the scan has finished
+12. Click on the Alerts tab
+13. Click on "External Redirect"
+14. Here you can see there is an external redirect: 
 "http://localhost:8080/redirect?uri=http%3A%2F%2F1551986429474458788.owasp.org"
 
 How to Fix
