@@ -25,7 +25,7 @@ Select "Token generation and analysis"
 Click "Install selected"
 
 
-Close the browser and start the browser again.
+Close the browser and start the browser again in private mode.
 Go to http://localhost:8080/admin in the browser.
 The browser will be redirected to http://localhost:8080/login
 Go to OWASP ZAP
@@ -46,6 +46,7 @@ How to fix:
 
 Delete the function @bean public EmbeddedServletContainerFactory servletContainer() in the file sec.project.CyberSecurityBaseProject.java.
 Delete the function @Override protected synchronized String generateSessionId() in the file sec.project.CyberSecurityBaseProject.java.
+Now the default session id generation algorithm is used.
 
 
 
@@ -53,16 +54,18 @@ Delete the function @Override protected synchronized String generateSessionId() 
 Insecure Direct Object References
 
 
-signups and admin page is not protected with logon (2)
+Signups and admin page is not protected with logon (2)
 
 Identifying the flaw
 
-In the browser goto localhost:8080/admin
-Login with username "bart" password "password"
-see there is a link Signups, this link should only be able to be accessed by the admin
-Close the browser and open it again in private mode
+Start a new ZAP session (File -> New Session).
+Close the browser and start it again in private mode.
+In the browser goto localhost:8080/admin.
+Login with username "bart" password "password".
+See there is a link Signups, this link should only be able to be accessed by the admin.
+Close the browser and open it again in private mode, so you are no longer logged in.
 Go to the page http://localhost:8080/signups
-You should still be able to see the signups page
+You should still be able to see the signups page.
 
 How to fix
 
@@ -83,6 +86,8 @@ With:
                                         .and()
                                         .formLogin();
 
+Now only login, form, done pages and the root are permited to be accessed without logging in.
+All other pages require a form login.
 
 Cross-Site Scripting (XSS)
 
@@ -91,7 +96,8 @@ Vulnerability XSS in signups (3)
 
 Identifing the flaw
 
-
+Start a new ZAP session (File -> New Session).
+Close the browser and start it again in private mode.
 Go to http://localhost:8080/admin
 The browser will be redirected to http://localhost:8080/login
 Login with username bart and password password
@@ -105,7 +111,7 @@ Click on the Alerts tab
 Click on "Cross Site Scripting (Persistant)(2)"
 Click on the first "GET: http://localhost:8080/signups"
 Click on the first "GET: http://localhost:8080/signups"
-Oberserve there is a Parameter address and name
+Observe there is a Parameter address and name
 
 How to fix
 
@@ -119,10 +125,12 @@ This changes the ouput from unescaped to escaped text.
 
 Cross-Site Request Forgery (CSRF) (4)
 
-The "Active scanner rules (beta)" and "Passive scanner rules (alpha)" addons has to be installed.
+The "Active scanner rules (beta)" and "Passive scanner rules (alpha)" addons have to be installed.
 
-Identifying the flaw:
+Identifying the flaw
 
+Start a new ZAP session (File -> New Session).
+Close the browser and start it again in private mode.
 Go to http://localhost:8080/admin
 The browser will be redirected to http://localhost:8080/login
 Login with username "bart" and password "password"
@@ -149,7 +157,8 @@ Unvalidated Redirects and Forwards (5)
 
 Identifing the flaw
 
-
+Start a new ZAP session (File -> New Session).
+Close the browser and start it again in private mode.
 Go to http://localhost:8080/admin
 The browser will be redirected to http://localhost:8080/login
 Login with username "bart" and password "password"
@@ -176,3 +185,5 @@ replace
 	return "redirect:/redirect?uri=/admin";
 with 
 	return "redirect:/admin";
+
+Now the open unvalidated redirect is removed.
